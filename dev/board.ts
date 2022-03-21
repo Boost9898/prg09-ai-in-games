@@ -20,7 +20,7 @@ class Board {
             for (let i = 0; i < Board.getInstance().getSize(); i++) {
                 for (let j = 0; j < Board.getInstance().getSize(); j++) {
                     let t:Tile = new Tile();
-                    t.setColor((i + j)%2==0 ?  "#ffffff" : "#000000");
+                    t.setColor((i + j)%2==0 ?  "plum" : "#000000");
                     t.initPosition([i, j]);
                     t.update();
                 }
