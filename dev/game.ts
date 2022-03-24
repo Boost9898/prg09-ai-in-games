@@ -1,7 +1,7 @@
 /// <reference path="gamestate.ts" />
 
-// TODO: Better chess board graphics
-// TODO: Add game over / win / restart game
+// [X] TODO: Better chess board graphics
+// [X] TODO: Add game over / win / restart game
 
 class Game {
     
@@ -65,7 +65,6 @@ class Game {
             if (go.moving) {
                 moving = true;
             }
-
         }
 
         // only respond to input during player turn when no knights are moving, and not game over
@@ -84,6 +83,13 @@ class Game {
                     // check win
                     if (this.gameState.getScore()[1]) {
                         this.gameOver = true;
+                        if (this.gameState.getScore()[0] === 100) {
+                            console.log('Winner: king')
+                        } else if (this.gameState.getScore()[0] === -100) {
+                            console.log('Winner: knight')
+                        } else {
+                            console.log('Something went wrong while checking who won')
+                        }
                     }
                 }
             }
