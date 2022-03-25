@@ -16,7 +16,7 @@ class Game {
 
     constructor() {
         Board.getInstance(); // init board
-
+        
         // create king for the player and put on middle of bottom row
         this.king = new King();
         this.king.initPosition([Math.floor(Board.getInstance().getSize() / 2), Board.getInstance().getSize() - 1])
@@ -116,7 +116,7 @@ class Game {
             // set timeout to let player (king/gandalf) move first, calculate and move knights/unicorns
             setTimeout(() => {
                 GameAI.moveKnight(this.king, this.knights, this.gameState);
-            }, 1500);
+            }, 3000);
 
             this.playerTurn = true;
 

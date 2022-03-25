@@ -84,7 +84,7 @@ class Board {
             for (let i = 0; i < Board.getInstance().getSize(); i++) {
                 for (let j = 0; j < Board.getInstance().getSize(); j++) {
                     let t = new Tile();
-                    t.setColor((i + j) % 2 == 0 ? "plum" : "#000000");
+                    t.setColor((i + j) % 2 == 0 ? "plum" : "#6B2775");
                     t.initPosition([i, j]);
                     t.update();
                 }
@@ -205,7 +205,7 @@ class Game {
         if (!this.playerTurn) {
             setTimeout(() => {
                 GameAI.moveKnight(this.king, this.knights, this.gameState);
-            }, 1500);
+            }, 3000);
             this.playerTurn = true;
             if (this.gameState.getScore()[1]) {
                 this.gameOver = true;
@@ -238,16 +238,19 @@ class GameAI {
     static moveKnight(king, knights, gameState) {
         let t0 = performance.now();
         let bestMove = this.findBestMove(king, knights, gameState);
+        let calctimeDOM = document.getElementById('calc-time');
         console.log(`Knight ${bestMove[0] + 1} to position [X,Y] [${bestMove[1]}]`);
         gameState.knightPositions[bestMove[0]] = bestMove[1];
         knights[bestMove[0]].setPosition(bestMove[1]);
         let t1 = performance.now();
         console.log(`AI calc time = ${(Math.round((t1 - t0) / 1000))} seconds`);
+        calctimeDOM.innerText = `AI calc time = ${(Math.round((t1 - t0) / 1000))} seconds`;
     }
     static findBestMove(king, knights, gameState) {
         console.log('Calculating optimal move');
         let bestMove = [1, [1, 1]];
         let bestScore = Infinity;
+        let aiscoreDOM = document.getElementById('ai-score');
         for (let i = 0; i < knights.length; i++) {
             console.log(`Knight #${(i + 1)} calculating...`);
             knights[i].getMoves().forEach(move => {
@@ -261,7 +264,8 @@ class GameAI {
                 }
             });
         }
-        console.log(`AI score: ${bestScore}`);
+        console.log(`AI score = ${bestScore}`);
+        aiscoreDOM.innerText = `AI score = ${bestScore}`;
         return bestMove;
     }
     static minimax(gameState, king, knights, depth, isMaxi) {

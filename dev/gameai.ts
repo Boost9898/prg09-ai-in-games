@@ -11,7 +11,8 @@ class GameAI {
 
         let t0 = performance.now(); // returns a DOMHighResTimeStamp, measured in milliseconds
         let bestMove = this.findBestMove(king, knights, gameState)
-
+        let calctimeDOM = document.getElementById('calc-time')!;
+        
         console.log(`Knight ${bestMove[0] + 1} to position [X,Y] [${bestMove[1]}]`);
 
         gameState.knightPositions[bestMove[0]] = bestMove[1];
@@ -20,6 +21,7 @@ class GameAI {
         let t1 = performance.now();
 
         console.log(`AI calc time = ${(Math.round((t1 - t0) / 1000))} seconds`);
+        calctimeDOM.innerText = `AI calc time = ${(Math.round((t1 - t0) / 1000))} seconds`;
     }
 
 
@@ -28,13 +30,13 @@ class GameAI {
 
         let bestMove: [number, [number, number]] = [1, [1, 1]]
         let bestScore = Infinity
+        let aiscoreDOM = document.getElementById('ai-score')!;        
 
         // loop every knight through > loop every move through minimax()
         for (let i = 0; i < knights.length; i++) {
             console.log(`Knight #${(i + 1)} calculating...`);
 
             knights[i].getMoves().forEach(move => {
-
                 let oldKnightPos = gameState.knightPositions[i]
 
                 // move the move in knight copied gameState
@@ -52,7 +54,8 @@ class GameAI {
             })
         }
 
-        console.log(`AI score: ${bestScore}`);
+        console.log(`AI score = ${bestScore}`);
+        aiscoreDOM.innerText = `AI score = ${bestScore}`;
 
         return bestMove
     }
@@ -68,8 +71,7 @@ class GameAI {
             return 0
         }
 
-        // if maximizers turn (knights)
-        if (isMaxi) {
+        if (isMaxi) {   // if maximizers' turn (knights)
 
             let bestScore = -Infinity
 
@@ -89,7 +91,7 @@ class GameAI {
             });
 
             return bestScore
-        } else {
+        } else {    // if minimizer's turn (king)
 
             let bestScore = Infinity
 
@@ -99,9 +101,7 @@ class GameAI {
 
                     let oldKnightPos = gameState.knightPositions[i]
 
-                    gameState.knightPositions[i] = knightMove
-
-                    // put the lowest score in bestScore
+                    gameState.knightPositions[i] = knightMove   // put the lowest score in bestScore
                     bestScore = Math.min(bestScore, this.minimax(gameState, king, knights, depth + 1, !isMaxi))
 
                     gameState.knightPositions[i] = oldKnightPos

@@ -1,8 +1,8 @@
 html, body {
     background-color: #666666;
-    font-family: 'Press Start 2P', cursive;
-    overflow:hidden;
-    margin:0px; padding:0px;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
     /* background-image: url('../images/grass.png');
     background-repeat: repeat; */
 }
@@ -14,46 +14,60 @@ script {
 body * {
     position: absolute;
     display: block;
-    margin:0px; padding:0px;
+    margin: 0px;
+    padding: 0px;
     box-sizing: border-box;
     background-repeat: no-repeat;
 }
 
-phone-component {
-	width:50px; min-height:92px;
-	background-image: url('../images/phone.png');
-}
-
-zombie-component {
-	width:67px; min-height:119px;
-	background-image: url('../images/zombie.png');
-}
-
-chicken-component {
-    width:67px; height:110px;
-    background-image: url('../images/chickenwalking.gif');
-}
-
 knight-component {
-	width:342px; min-height:600px;
-	background-image: url('../images/knight.png');
+    width: 342px;
+    min-height: 600px;
+    background-image: url('../images/knight.png');
 }
 
 king-component {
-    width:178px; height:387px;
+    width: 178px;
+    height: 387px;
     background-image: url('../images/king.png');
 }
 
 tile-component {
-    width:300; height:300;
+    width: 300;
+    height: 300;
     background-color: white;
 }
 
 ui {
-    font-size:42px;
+    font-size: 42px;
     text-shadow: 8px 8px 0px black;
-    color:white;
-    padding:20px;
-    width:100%;
+    color: white;
+    padding: 20px;
+    width: 100%;
     text-align: center;
+}
+
+/* I know this is not the best way to do it, but I did not want to install SASS */
+#calc-time {
+    z-index: 2;
+    font-family: Impact;
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #ffffff;
+    top: 25px;
+    right: 25px;
+}
+
+#ai-score {
+    z-index: 2;
+    font-family: Impact;
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #ffffff;
+    top: 100px;
+    right: 25px;
 }
