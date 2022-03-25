@@ -13,11 +13,11 @@ class Tile extends ChessPiece {
         this.style.backgroundColor = "white";
     }
 
-    public setColor(color:string) {
+    public setColor(color: string) {
         this.style.backgroundColor = color;
     }
 
-    public update(){
+    public update() {
         super.update()
     }
 

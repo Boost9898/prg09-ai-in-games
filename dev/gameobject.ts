@@ -5,17 +5,17 @@ class GameObject extends HTMLElement {
     public targetPos: [number, number] = [0, 0];    // target position in screen coordinates
     public speed: [number, number] = [2, 2];        // move speed
 
-    public width:number;
-    public height:number;
-    public direction:number = 1;
-    public moving:boolean = false;                  // is object moving?
+    public width: number;
+    public height: number;
+    public direction: number = 1;
+    public moving: boolean = false;                  // is object moving?
 
     constructor() {
         super();
         document.body.appendChild(this);
     }
 
-    public update():void {
+    public update(): void {
         // set pos to target if within speedrange
         this.moving = false;
         for (let i = 0; i < 2; i++) {
@@ -42,7 +42,7 @@ class GameObject extends HTMLElement {
         this.style.height = this.height + "px";
         this.style.backgroundSize = this.width + "px " + this.height + "px";
 
-        this.style.transform = "translate(" + this.pos[0]+"px, "+ this.pos[1]+"px) scale("+this.direction+",1)"
+        this.style.transform = "translate(" + this.pos[0] + "px, " + this.pos[1] + "px) scale(" + this.direction + ",1)"
 
     }
 

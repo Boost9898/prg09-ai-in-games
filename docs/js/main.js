@@ -136,7 +136,7 @@ class Game {
     constructor() {
         this.knights = [];
         this.gameOver = false;
-        this.KNIGHTS = 4;
+        this.KNIGHTS = 3;
         this.playerTurn = true;
         Board.getInstance();
         this.king = new King();

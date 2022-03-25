@@ -10,13 +10,11 @@ class GameAI {
     public static moveKnight(king: King, knights: Knight[], gameState: GameState) {
 
         let t0 = performance.now(); // returns a DOMHighResTimeStamp, measured in milliseconds
-
         let bestMove = this.findBestMove(king, knights, gameState)
 
         console.log(`Knight ${bestMove[0] + 1} to position [X,Y] [${bestMove[1]}]`);
 
         gameState.knightPositions[bestMove[0]] = bestMove[1];
-
         knights[bestMove[0]].setPosition(bestMove[1]);
 
         let t1 = performance.now();
@@ -46,7 +44,6 @@ class GameAI {
                 let moveScore: number = this.minimax(gameState, king, knights, 0, true)
 
                 gameState.knightPositions[i] = oldKnightPos
-
                 // if the score of this move is higher than previous moves update bestMove & bestScore
                 if (moveScore < bestScore) {
                     bestMove = [i, move]
