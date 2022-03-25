@@ -9,7 +9,7 @@ class GameState {
 
     // return the value of the state and if the state is terminal (game over)
     // higher value is better gamestate for the king (100 is win, -100 is lose)
-    public getScore(depth: number = 0) : [number, boolean] {
+    public getScore(depth: number = 0): [number, boolean] {
         // game over
         for (let z of this.knightPositions) {
             if (Board.samePosition(z, this.kingPos)) {
@@ -19,8 +19,8 @@ class GameState {
 
         // win
         if (this.kingPos[1] == 0) {
-            return[(100 - depth), true]; // substract depth
-        } 
+            return [(100 - depth), true]; // substract depth
+        }
 
         // not over yet, return an evaluation of the gamestate
         // higher number is better for king, lower better for the knights
@@ -30,8 +30,8 @@ class GameState {
     }
 
     // create a copy of the gamestate (needed by AI to look into the future)
-    public copy() : GameState {
-        const knightPosCopy  = Object.assign([], this.knightPositions);
+    public copy(): GameState {
+        const knightPosCopy = Object.assign([], this.knightPositions);
 
         return new GameState(this.kingPos, knightPosCopy)
     }

@@ -4,28 +4,28 @@
 // [X] TODO: Add game over / win / restart game
 
 class Game {
-    
-    private king:King;                      // the king (=player)
+
+    private king: King;                      // the king (=player)
     private knights: Knight[] = [];         // list of knights in the game (=computer/AI)
-    private gameOver:boolean = false;
-    private gameState:GameState;            // current gameState (=position of king and knights)
+    private gameOver: boolean = false;
+    private gameState: GameState;            // current gameState (=position of king and knights)
 
-    private readonly KNIGHTS: number = 3;   // number of knights
+    private readonly KNIGHTS: number = 4;   // number of knights
 
-    private playerTurn:boolean = true;      // player has first turn 
- 
+    private playerTurn: boolean = true;      // player has first turn 
+
     constructor() {
         Board.getInstance(); // init board
 
         // create king for the player and put on middle of bottom row
         this.king = new King();
         this.king.initPosition([Math.floor(Board.getInstance().getSize() / 2), Board.getInstance().getSize() - 1])
-  
+
         // create a list with knights for the AI
         let knightPos: [number, number][] = []
-        for(let c = 0; c<this.KNIGHTS; c++){
-            let z:Knight = new Knight();
-            let pos: [number, number] = [ Math.floor((c / this.KNIGHTS) * Board.getInstance().getSize()),0]
+        for (let c = 0; c < this.KNIGHTS; c++) {
+            let z: Knight = new Knight();
+            let pos: [number, number] = [Math.floor((c / this.KNIGHTS) * Board.getInstance().getSize()), 0]
             z.initPosition(pos);
             knightPos.push(pos);
             this.knights.push(z);
@@ -36,7 +36,7 @@ class Game {
         this.gameState = new GameState(this.king.boardPosition, knightPos);
 
         // register input events
-        window.addEventListener("click", (e:MouseEvent) => this.onWindowClick(e))
+        window.addEventListener("click", (e: MouseEvent) => this.onWindowClick(e))
         window.addEventListener("touchend", (e) => this.onTouchStart(e as TouchEvent))
 
         // start gameloop
@@ -44,24 +44,24 @@ class Game {
     }
 
     // touch input
-    private onTouchStart(e : TouchEvent) {
+    private onTouchStart(e: TouchEvent) {
         let touchobj = e.changedTouches[0]
         this.playerMove(touchobj.clientX, touchobj.clientY)
-     }
+    }
 
     // mouse input
-    private onWindowClick(e:MouseEvent):void {
+    private onWindowClick(e: MouseEvent): void {
         this.playerMove(e.x, e.y);
     }
 
     // move player to tile after touch/mouse input
-    private playerMove(x:number, y:number):void {
+    private playerMove(x: number, y: number): void {
         // which tile was clicked?
         let boardPos: [number, number] = Board.getInstance().screenToBoardPos([x, y]);
 
         // check if knights are still moving
         let moving = false;
-        for (let go of this.knights){
+        for (let go of this.knights) {
             if (go.moving) {
                 moving = true;
             }
@@ -73,7 +73,7 @@ class Game {
             let legalMoves: [number, number][] = this.king.getMoves();
 
             // check if requested move is a legal move
-            for(let m of legalMoves) {
+            for (let m of legalMoves) {
                 if (Board.samePosition(m, boardPos)) {
                     console.log("legal move");
                     this.king.setPosition(boardPos);
@@ -97,23 +97,27 @@ class Game {
             console.log("Not player turn, yet");
         }
     }
-    
-    private gameLoop(){
+
+    private gameLoop() {
         // init
 
         // move king
         this.king.update()
 
         // move knights
-        for (let go of this.knights){
+        for (let go of this.knights) {
             go.update()
 
         }
 
         // AI needs to make a move if it is not the player's turn
         if (!this.playerTurn) {
-            
-            GameAI.moveKnight(this.king, this.knights, this.gameState);
+
+            // set timeout to let player (king/gandalf) move first, calculate and move knights/unicorns
+            setTimeout(() => {
+                GameAI.moveKnight(this.king, this.knights, this.gameState);
+            }, 1500);
+
             this.playerTurn = true;
 
             // check lose
@@ -125,7 +129,7 @@ class Game {
         // restart gameloop
         requestAnimationFrame(() => this.gameLoop());
     }
-} 
+}
 
 console.log("Start AI Chess");
 window.addEventListener("load", () => new Game())
