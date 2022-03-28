@@ -125,7 +125,7 @@ class GameState {
         if (this.kingPos[1] == 0) {
             return [(100 - depth), true];
         }
-        return [0, false];
+        return [this.kingPos[1] * -1, false];
     }
     copy() {
         const knightPosCopy = Object.assign([], this.knightPositions);
@@ -136,7 +136,7 @@ class Game {
     constructor() {
         this.knights = [];
         this.gameOver = false;
-        this.KNIGHTS = 4;
+        this.KNIGHTS = 3;
         this.playerTurn = true;
         Board.getInstance();
         this.king = new King();
@@ -274,7 +274,7 @@ class GameAI {
             return score[0];
         }
         else if (depth > 6) {
-            return 0;
+            return score[0];
         }
         if (isMaxi) {
             let bestScore = -Infinity;

@@ -26,7 +26,7 @@ class GameState {
         // higher number is better for king, lower better for the knights
 
         // Hint: use the position of the king stored in this.kingPos
-        return [0, false]
+        return [this.kingPos[1] * -1, false]
     }
 
     // create a copy of the gamestate (needed by AI to look into the future)

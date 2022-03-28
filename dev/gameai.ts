@@ -68,7 +68,7 @@ class GameAI {
         if (score[1]) {             // if won or when...
             return score[0]
         } else if (depth > 6) {     // depth iterations are finished, depth means how many layers deep it will calculate (< 6 is very fast | 6 = average | > 6 is slow (device: mbp m1 pro))
-            return 0
+            return score[0];        // COMMENT: I know this is not the right way to do it but I can't get it working for some reason
         }
 
         if (isMaxi) {   // if maximizers' turn (knights)
