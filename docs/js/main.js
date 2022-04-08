@@ -273,7 +273,7 @@ class GameAI {
         if (score[1]) {
             return score[0];
         }
-        else if (depth > 6) {
+        else if (depth > 4) {
             return score[0];
         }
         if (isMaxi) {
